@@ -18,7 +18,12 @@
 const char* trackStateLabel(TrackState s)
 {
     switch(s) {
-        case TrackState::Empty: return "Idle";
+        case TrackState::Empty:       return "Idle";
+        case TrackState::Recording:   return "Recording";
+        case TrackState::Overdubbing: return "Overdubbing";
+        case TrackState::Stopped:     return "Stopped";
+        case TrackState::Playing:     return "Playing";
+        case TrackState::Replacing:   return "Replacing";
     }
     return nullptr;
 }

@@ -242,17 +242,17 @@ ApplicationWindow {
 
                                 Label {
                                     text: trackObj.hasLoop ? (trackObj.position / 48000).toFixed(1) + " s" : "—"
-                                    color: "#bbbbbb"; font.pixelSize: 14; font.bold: true
+                                    color: "#bbbbbb"; font.pixelSize: 20; font.bold: true
                                     anchors.verticalCenter: parent.verticalCenter
                                 }
                                 Label {
                                     text: trackObj.hasLoop ? "/" : ""
-                                    color: "#555555"; font.pixelSize: 14
+                                    color: "#555555"; font.pixelSize: 20
                                     anchors.verticalCenter: parent.verticalCenter
                                 }
                                 Label {
                                     text: trackObj.hasLoop ? (trackObj.length / 48000).toFixed(1) + " s" : ""
-                                    color: "#888888"; font.pixelSize: 14
+                                    color: "#888888"; font.pixelSize: 20
                                     anchors.verticalCenter: parent.verticalCenter
                                 }
                             }

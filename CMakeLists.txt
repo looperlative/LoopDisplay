@@ -6,14 +6,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Network Quick)
+if(APPLE AND CMAKE_SYSTEM_NAME STREQUAL "iOS")
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "16.0" CACHE STRING "Minimum iOS deployment version")
+endif()
+
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Network Quick QuickControls2)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
-add_subdirectory(qml)
 add_subdirectory(src)
 
-# Install
 install(TARGETS LoopDisplay
   BUNDLE DESTINATION .
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}

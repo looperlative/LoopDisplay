@@ -16,6 +16,7 @@
 #include "devicefinder.h"
 #include "protocol.h"
 #include <Qt>
+#include <QDebug>
 #include <QNetworkInterface>
 #include <QUdpSocket>
 

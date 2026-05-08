@@ -21,11 +21,25 @@
 #include "udpprotocol/devicenetwork.h"
 #include <Qt>
 
+#ifdef Q_OS_IOS
+#include "ioshelper.h"
+#include <QtPlugin>
+Q_IMPORT_PLUGIN(QtQuick2Plugin)
+Q_IMPORT_PLUGIN(QtQuickControls2Plugin)
+Q_IMPORT_PLUGIN(QtQuickControls2ImplPlugin)
+Q_IMPORT_PLUGIN(QtQuickControls2IOSStylePlugin)
+Q_IMPORT_PLUGIN(QtQuickLayoutsPlugin)
+#endif
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     app.setApplicationName("LoopDisplay");
     app.setOrganizationName("Loop");
+
+#ifdef Q_OS_IOS
+    disableIdleTimer();
+#endif
 
     QQmlApplicationEngine engine;
 
