@@ -1,0 +1,49 @@
+# Build directories
+build/
+out/
+cmake-build-*/
+
+# Qt generated
+*.qmlc
+*.jsc
+qmlcache/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# Android
+android/build/
+android/.gradle/
+*.apk
+*.aab
+
+# iOS
+*.xcworkspace
+*.xcuserdata/
+DerivedData/
+*.ipa
+
+# Compiled binaries
+LoopDisplay
+*.o
+*.a
+*.so
+*.dylib
+
+# IDE
+.idea/
+.vscode/
+*.user
+*.creator.user.*
+*.pro.user
+.qtcreator/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini

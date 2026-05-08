@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="main.qml">../qml/main.qml</file>
+        <file alias="components/PanKnob.qml">../qml/components/PanKnob.qml</file>
+        <file alias="components/LevelMeter.qml">../qml/components/LevelMeter.qml</file>
+        <file alias="components/FeedbackDial.qml">../qml/components/FeedbackDial.qml</file>
+        <file alias="components/LoopArc.qml">../qml/components/LoopArc.qml</file>
+        <file alias="components/StateIndicator.qml">../qml/components/StateIndicator.qml</file>
+        <file alias="components/TrackRow.qml">../qml/components/TrackRow.qml</file>
+    </qresource>
+</RCC>
