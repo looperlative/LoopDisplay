@@ -27,11 +27,11 @@ class TrackSnapshot : public QObject
     Q_PROPERTY(int        index         READ index            NOTIFY dataChanged)
     Q_PROPERTY(int        state         READ state            NOTIFY dataChanged)
     Q_PROPERTY(qreal      length        READ length           NOTIFY dataChanged)
-    Q_PROPERTY(qreal      position      READ position         NOTIFY dataChanged)
+    Q_PROPERTY(qreal      position      READ position         NOTIFY positionUpdated)
     Q_PROPERTY(int        level         READ level            NOTIFY dataChanged)
     Q_PROPERTY(int        pan           READ pan              NOTIFY dataChanged)
     Q_PROPERTY(int        feedback      READ feedback         NOTIFY dataChanged)
-    Q_PROPERTY(qreal      loopProgress  READ loopProgress     NOTIFY dataChanged)
+    Q_PROPERTY(qreal      loopProgress  READ loopProgress     NOTIFY positionUpdated)
     Q_PROPERTY(bool       hasLoop       READ hasLoop          NOTIFY dataChanged)
     Q_PROPERTY(bool       isPlaying     READ isPlaying        NOTIFY dataChanged)
     Q_PROPERTY(bool       selected      READ selected         NOTIFY dataChanged)
@@ -57,6 +57,7 @@ public:
 
 signals:
     void dataChanged();
+    void positionUpdated();
 
 private:
     int    m_index        { 0 };
@@ -97,6 +98,6 @@ public slots:
 
 private:
     TrackSnapshot *m_tracks[CONTROL_NUM_TRACKS]{ {} };
-    int m_selectedTrackIndex{ 0 };
+    int m_selectedTrackIndex{ -1 };
     QMutex m_mutex;
 };

@@ -100,7 +100,7 @@ ApplicationWindow {
                     radius: 5
 
                     property var trackObj: mixerModel.track(index)
-                    property bool isSelected: mixerModel.selectedTrackIndex === index
+                    property bool isSelected: trackObj.selected
 
                     property color accentColor: {
                         switch(index) {
@@ -186,6 +186,7 @@ ApplicationWindow {
 
                         // ── Loop position scrubber ──
                         Item {
+                            id: scrubContainer
                             Layout.fillWidth: true
                             Layout.fillHeight: true
 
@@ -207,14 +208,45 @@ ApplicationWindow {
 
                             // Normal playhead (hidden while recording)
                             Rectangle {
+                                id: playhead
                                 anchors.verticalCenter: scrubTrack.verticalCenter
-                                x: trackObj.hasLoop
-                                   ? Math.max(0, Math.min(parent.width - 5, trackObj.loopProgress * parent.width))
-                                   : 0
+                                x: 0
                                 width: 5; height: 26
                                 radius: 1
                                 color: stateColor(trackObj.state)
                                 visible: trackObj.hasLoop && trackObj.state !== 1
+
+                                NumberAnimation {
+                                    id: playheadAnim
+                                    target: playhead
+                                    property: "x"
+                                    duration: 100
+                                    easing.type: Easing.Linear
+                                }
+
+                                property real prevProgress: 0
+
+                                Connections {
+                                    target: trackObj
+                                    function onPositionUpdated() {
+                                        var newProgress = trackObj.loopProgress
+                                        var delta = newProgress - playhead.prevProgress
+                                        playhead.prevProgress = newProgress
+
+                                        var newX = trackObj.hasLoop
+                                            ? Math.max(0, Math.min(scrubContainer.width - 5,
+                                                                   newProgress * scrubContainer.width))
+                                            : 0
+
+                                        if (Math.abs(delta) > 0.5) {
+                                            playheadAnim.stop()
+                                            playhead.x = newX
+                                        } else {
+                                            playheadAnim.to = newX
+                                            playheadAnim.restart()
+                                        }
+                                    }
+                                }
                             }
 
                             // Recording pulse bar — centered, pulses width

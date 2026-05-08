@@ -24,6 +24,11 @@ void TrackSnapshot::setData(int idx, int st, qreal len, qreal pos,
                             int lvl, int pn, int fb, qreal lp,
                             bool hl, bool play, bool sel)
 {
+    bool posChanged   = (m_position != pos || m_loopProgress != lp);
+    bool otherChanged = (m_state != st || m_length != len || m_level != lvl ||
+                         m_pan != pn || m_feedback != fb || m_hasLoop != hl ||
+                         m_isPlaying != play || m_selected != sel);
+
     m_index        = idx;
     m_state        = st;
     m_length       = len;
@@ -35,7 +40,9 @@ void TrackSnapshot::setData(int idx, int st, qreal len, qreal pos,
     m_hasLoop      = hl;
     m_isPlaying    = play;
     m_selected     = sel;
-    emit dataChanged();
+
+    if (posChanged)   emit positionUpdated();
+    if (otherChanged) emit dataChanged();
 }
 
 MixerModel::MixerModel(QObject *parent)
@@ -51,14 +58,14 @@ void MixerModel::updateSnapshot(const ControlCompactStatus &status)
 {
     QMutexLocker locker(&m_mutex);
 
-    int newSelected = 0;
+    int newSelected = -1;
     for (int i = 0; i < CONTROL_NUM_TRACKS; i++) {
         int len  = status.length[i];
         int pos  = status.position[i];
         int lvl  = status.level[i];
         int pn   = status.pan[i];
-        int fb  = status.feedback[i];
-        int st  = status.state[i];
+        int fb   = status.feedback[i];
+        int st   = status.state[i];
         bool sel = static_cast<bool>(status.selected[i]);
 
         qreal progress = (len > 0) ? static_cast<qreal>(pos) / static_cast<qreal>(len) : 0.0;
@@ -68,7 +75,7 @@ void MixerModel::updateSnapshot(const ControlCompactStatus &status)
                             len > 0, (st == 4 || st == 2), sel);
         emit trackDataChanged(i);
 
-        if (sel) newSelected = i;
+        if (sel && newSelected == -1) newSelected = i;
     }
 
     if (m_selectedTrackIndex != newSelected) {
