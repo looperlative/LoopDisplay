@@ -63,6 +63,9 @@ if(APPLE AND CMAKE_SYSTEM_NAME STREQUAL "iOS")
   set_target_properties(LoopDisplay PROPERTIES
     MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/Info.plist.in"
   )
+  set_source_files_properties(Assets.xcassets PROPERTIES
+    MACOSX_PACKAGE_LOCATION Resources
+  )
 endif()
 
 if(ANDROID)
