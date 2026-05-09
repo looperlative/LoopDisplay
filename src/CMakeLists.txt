@@ -56,4 +56,11 @@ if(APPLE AND CMAKE_SYSTEM_NAME STREQUAL "iOS")
   )
 endif()
 
+if(ANDROID)
+  set_target_properties(LoopDisplay PROPERTIES
+    QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/android"
+    QT_ANDROID_TARGET_SDK_VERSION 36
+  )
+endif()
+
 qt_import_qml_plugins(LoopDisplay)
