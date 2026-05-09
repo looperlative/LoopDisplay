@@ -41,3 +41,5 @@ The app speaks the Looperlative LP1 UDP control protocol on port 5667. Discovery
 Copyright (C) 2026 Robert Amstadt
 
 Licensed under the GNU General Public License v3 — see [LICENSE.txt](LICENSE.txt).
+
+The Qt Community Edition is licensed under the (L)GPL license.  Licenses are included in the Licenses directory.
