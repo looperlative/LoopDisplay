@@ -74,12 +74,19 @@ ApplicationWindow {
                 elide: Qt.ElideRight
             }
 
-            Label {
-                anchors.right: parent.right; anchors.rightMargin: 10
+            Button {
+                id: aboutBtn
+                anchors.right: parent.right; anchors.rightMargin: 6
                 anchors.verticalCenter: parent.verticalCenter
-                text: "LoopDisplay 0.1"
-                color: "#444444"
-                font.pixelSize: 10
+                flat: true
+                padding: 4
+                contentItem: Label {
+                    text: "About LoopDisplay " + Qt.application.version
+                    color: aboutBtn.hovered ? "#ffffff" : "#aaaaaa"
+                    font.pixelSize: 10
+                }
+                background: Item {}
+                onClicked: aboutDialog.open()
             }
         }
 
@@ -485,6 +492,135 @@ ApplicationWindow {
             } // Repeater
         } // ColumnLayout tracks
     } // ColumnLayout root
+
+    Dialog {
+        id: aboutDialog
+        title: "About LoopDisplay"
+        modal: true
+        anchors.centerIn: Overlay.overlay
+        width: 420
+        height: 340
+        padding: 16
+
+        background: Rectangle {
+            color: "#1e1e1e"
+            border.color: "#3a3a3a"
+            border.width: 1
+            radius: 6
+        }
+
+        header: Item {
+            width: parent.width
+            height: 52
+            Label {
+                anchors.left: parent.left; anchors.leftMargin: 20
+                anchors.verticalCenter: parent.verticalCenter
+                text: "About LoopDisplay " + Qt.application.version
+                color: "#cccccc"
+                font.pixelSize: 15
+                font.bold: true
+            }
+        }
+
+        contentItem: ColumnLayout {
+            width: aboutDialog.availableWidth
+            spacing: 10
+
+            Label {
+                text: "Copyright © 2026 Robert Amstadt"
+                color: "#aaaaaa"
+                font.pixelSize: 13
+            }
+
+            Label {
+                text: "Licensed under the GNU General Public License v3."
+                color: "#777777"
+                font.pixelSize: 12
+                wrapMode: Text.WordWrap
+                Layout.fillWidth: true
+            }
+
+            Rectangle { height: 1; Layout.fillWidth: true; color: "#2e2e2e" }
+
+            Label {
+                textFormat: Text.RichText
+                text: "<a href='https://github.com/looperlative/LoopDisplay'>GitHub Project</a>"
+                color: "#aaaaaa"
+                font.pixelSize: 12
+                linkColor: "#4488ff"
+                onLinkActivated: (link) => Qt.openUrlExternally(link)
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.NoButton
+                    cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                }
+            }
+
+            Label {
+                textFormat: Text.RichText
+                text: "<a href='https://amstadt.com'>amstadt.com</a>"
+                color: "#aaaaaa"
+                font.pixelSize: 12
+                linkColor: "#4488ff"
+                onLinkActivated: (link) => Qt.openUrlExternally(link)
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.NoButton
+                    cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                }
+            }
+
+            Label {
+                textFormat: Text.RichText
+                text: "<a href='https://looperlative.com'>looperlative.com</a>"
+                color: "#aaaaaa"
+                font.pixelSize: 12
+                linkColor: "#4488ff"
+                onLinkActivated: (link) => Qt.openUrlExternally(link)
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.NoButton
+                    cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                }
+            }
+
+            Rectangle { height: 1; Layout.fillWidth: true; color: "#2e2e2e" }
+
+            Label {
+                text: "Built with Qt — used under the terms of the (L)GPL license."
+                color: "#555555"
+                font.pixelSize: 11
+                wrapMode: Text.WordWrap
+                Layout.fillWidth: true
+            }
+        }
+
+        footer: Item {
+            width: parent.width
+            height: 48
+            Button {
+                anchors.right: parent.right; anchors.rightMargin: 16
+                anchors.verticalCenter: parent.verticalCenter
+                text: "OK"
+                onClicked: aboutDialog.close()
+                contentItem: Label {
+                    text: parent.text
+                    color: "#cccccc"
+                    font.pixelSize: 13
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+                background: Rectangle {
+                    color: parent.hovered ? "#333333" : "#282828"
+                    border.color: "#444444"
+                    border.width: 1
+                    radius: 4
+                    implicitWidth: 70
+                    implicitHeight: 30
+                }
+            }
+        }
+    }
 
     Component.onCompleted: {
         deviceFinder.startSearch();

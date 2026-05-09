@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     app.setApplicationName("LoopDisplay");
     app.setOrganizationName("Loop");
+    app.setApplicationVersion(QStringLiteral(APP_VERSION));
 
 #ifdef Q_OS_IOS
     disableIdleTimer();

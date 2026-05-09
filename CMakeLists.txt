@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
-project(LoopDisplay LANGUAGES CXX VERSION 0.1.0)
+project(LoopDisplay LANGUAGES CXX VERSION 1.0.0)
+
+set(BUILD_NUMBER "1" CACHE STRING "Monotonically increasing build number for App Store / TestFlight")
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

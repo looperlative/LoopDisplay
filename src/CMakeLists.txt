@@ -18,6 +18,10 @@ qt_add_executable(LoopDisplay
   ${CMAKE_SOURCE_DIR}/qml/components/TrackRow.qml
 )
 
+target_compile_definitions(LoopDisplay PRIVATE
+    APP_VERSION="${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}"
+)
+
 target_include_directories(LoopDisplay PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/udpprotocol
   ${CMAKE_CURRENT_SOURCE_DIR}/mixermodel
@@ -46,7 +50,7 @@ endif()
 set_target_properties(LoopDisplay PROPERTIES
   MACOSX_BUNDLE TRUE
   MACOSX_BUNDLE_GUI_IDENTIFIER "com.amstadt.LoopDisplay"
-  MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+  MACOSX_BUNDLE_BUNDLE_VERSION ${BUILD_NUMBER}
   MACOSX_BUNDLE_SHORT_VERSION_STRING "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}"
 )
 
